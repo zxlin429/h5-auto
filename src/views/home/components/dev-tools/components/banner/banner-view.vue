@@ -2,8 +2,8 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 10:02:16
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-04-28 15:46:20
- * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\banner\banner-view.vue
+ * @LastEditTime : 2023-04-28 23:49:10
+ * @FilePath     : /h5-auto/src/views/home/components/dev-tools/components/banner/banner-view.vue
  * @Description  : 
 -->
 <template>
@@ -107,7 +107,7 @@ import AddType from './components/add-type.vue';
 import DeleteType from './components/delete-type.vue';
 import ResetType from './components/reset-type.vue';
 import { useStore } from 'vuex';
-import useTypeList from '../hooks/useTypeList'; // 移动端尺寸管理
+import useTypeList from '@/views/home/hooks/useTypeList';
 const store = useStore();
 let {
   typeList,
@@ -204,6 +204,6 @@ const resetVisible = ref(false);
 }
 .re-set:hover {
   color: rgb(64, 158, 255);
-  transform: rotate(180deg);
+  transform: rotate(-180deg);
 }
 </style>

@@ -1,3 +1,11 @@
+<!--
+ * @Author       : zxlin
+ * @Date         : 2023-04-28 20:25:38
+ * @LastEditors  : zxlin
+ * @LastEditTime : 2023-04-28 23:49:34
+ * @FilePath     : /h5-auto/src/views/home/components/dev-tools/components/body/body-view.vue
+ * @Description  : 
+-->
 <template>
   <div class="body-view styles-variable">
     <div
@@ -17,7 +25,7 @@
 </template>
 <script setup lang="ts">
 import { useStore } from 'vuex';
-import useTypeList from '../hooks/useTypeList'; // 移动端尺寸管理
+import useTypeList from '@/views/home/hooks/useTypeList';
 const store = useStore();
 let { currentTypeObject, currentPercentage } = useTypeList(store);
 </script>

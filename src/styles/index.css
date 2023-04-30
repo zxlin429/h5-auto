@@ -12,7 +12,7 @@ html,body,#app,.page{
   height: 100vh;
   overflow-y: hidden;
 }
-.control{
+.control {
   width: 100%;
   height: 100%;
 }
@@ -23,4 +23,56 @@ html,body,#app,.page{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+.console-box {
+  height: 72px;
+  border-radius: 4px;
+  color: #d6d8db;
+  background: #2b313f;
+  overflow: hidden;
+  display: block;
+  position: relative;
+  transition: all .3s ease;
+}
+.console-box > span {
+  font: 12px/130% sans-serif;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  z-index: 1;
+  opacity: 0.6;
+}
+.console-box > input {
+  width: 100%;
+  height: 24px;
+  padding: 30px 0 16px;
+  position: relative;
+  z-index: 1;
+  border: none;
+  background: transparent;
+  font: 24px/normal sans-serif;
+  text-align: center;
+  color: #0b89f0;
+  box-sizing: content-box;
+  cursor: text;
+}
+.console-box:hover {
+  background-color: #393e4c;
+  transition: none;
+  box-shadow: 0 8px 16px #111827;
+}
+.console-box:hover span {
+  color: #f9fafb;
+  opacity: 1;
+}
+.console-box > input:focus{
+  background: #0b89f0;
+  color: #eaeffc;
+  outline: none;
+  box-shadow: 0 0 5px 2px #0b89f0;
+}
+.console-box > input:focus + span {
+  color: #eaeffc;
+  z-index: 10;
+  opacity: 1;
 }

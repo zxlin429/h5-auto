@@ -2,13 +2,13 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 13:43:48
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-04-28 14:54:26
- * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\banner\components\add-type.vue
+ * @LastEditTime : 2023-04-28 23:49:25
+ * @FilePath     : /h5-auto/src/views/home/components/dev-tools/components/banner/components/add-type.vue
  * @Description  : 
 -->
 <template>
   <div class="add-type">
-    <el-dialog v-model="dialogVisible" title="添加移动设备" width="400px">
+    <el-dialog v-model="dialogVisible" title="添加" width="400px">
       <el-row>
         <el-col :span="4"><div>名称:</div></el-col>
         <el-col :span="20">
@@ -66,7 +66,7 @@
 import { computed, ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import { useStore } from 'vuex';
-import useTypeList from '../../hooks/useTypeList'; // 移动端尺寸管理
+import useTypeList from '@/views/home/hooks/useTypeList';
 const store = useStore();
 let { addTypeList, typeList } = useTypeList(store);
 const props = defineProps({
