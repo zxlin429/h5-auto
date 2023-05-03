@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:57:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-03 21:15:39
+ * @LastEditTime : 2023-05-03 22:55:36
  * @FilePath     : /h5-auto/src/views/home/hooks/useProject.ts
  * @Description  : 
  */
@@ -13,18 +13,21 @@ import { Store } from 'vuex';
 
 export default function(store:Store<any>){
   class Project {
-    id = btoa(`${(Math.random() * 100000000).toFixed()}-${new Date().getTime()}`)
+    id:string
     name:string
     assetsBaseUrl// 静态资源地址
     isRequire
     pageList:Page[]
-    constructor(name = '新建项目',assetsBaseUrl='/',isRequire = false,pageList:Page[] = [],isNewProject = true){
+    constructor(name = '新建项目',assetsBaseUrl='/',isRequire = false,pageList:Page[] = [],id:string = btoa(`${(Math.random() * 100000000).toFixed()}-${new Date().getTime()}`),isNewProject = true){
+      this.id = id
       this.name = name
       this.assetsBaseUrl = assetsBaseUrl
       this.isRequire = isRequire
       this.pageList = pageList
       if(isNewProject){
         store.commit('project/handleAddProject', this)
+      }else{
+        this.id = id
       }
       
     }
@@ -65,12 +68,13 @@ export default function(store:Store<any>){
     }
   }
   class Page {
-    id = btoa(`${(Math.random() * 100000000).toFixed()}/${new Date().getTime()}`)
+    id:string
     name:string
     bgUrl = '' //背景图
     thumbnail = '' //缩略图
     elementList
-    constructor(name:string,elementList = []){
+    constructor(name:string,elementList = [],id= btoa(`${(Math.random() * 100000000).toFixed()}/${new Date().getTime()}`)){
+      this.id = id
       this.name = name
       this.elementList = elementList
     }
