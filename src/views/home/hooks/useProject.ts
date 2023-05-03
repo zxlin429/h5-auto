@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:57:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-02 18:53:11
+ * @LastEditTime : 2023-05-03 20:59:31
  * @FilePath     : /h5-auto/src/views/home/hooks/useProject.ts
  * @Description  : 
  */
@@ -15,7 +15,7 @@ export default function(store:Store<any>){
   class Project {
     id = btoa(`${(Math.random() * 100000000).toFixed()}-${new Date().getTime()}`)
     name:string
-    assetsBaseUrl = ''
+    assetsBaseUrl = '/' // 静态资源地址
     isRequire = false
     pageList:Page[] = []
     static projectNumber = 0
@@ -33,7 +33,7 @@ export default function(store:Store<any>){
       store.commit('project/handleDeleteProject', this)
     }
     addPage(){
-      const page = new Page(this,'新建页面')
+      const page = new Page('新建页面')
       this.pageList.push(page)
       store.commit('project/changeCurrentPage', page.id)
     }
@@ -42,7 +42,7 @@ export default function(store:Store<any>){
       if(oldPage){
         const index = this.pageList.indexOf(oldPage)
         if(index>=0){
-          const newPage = new Page(this,'新建页面')
+          const newPage = new Page('新建页面')
           this.pageList.splice(index + 1,0,newPage)
           store.commit('project/changeCurrentPage', newPage.id)
         }
@@ -71,9 +71,9 @@ export default function(store:Store<any>){
     bgUrl = '' //背景图
     thumbnail = '' //缩略图
     elementList = []
-    readonly project:Project
-    constructor(project:Project,name:string){
-      this.project = project
+
+    constructor(name:string){
+
       this.name = name
     }
   }

@@ -2,9 +2,9 @@
  * @Author       : zxlin
  * @Date         : 2023-04-27 14:39:17
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-03 19:13:49
+ * @LastEditTime : 2023-05-03 19:15:09
  * @FilePath     : /h5-auto/src/views/home/Home-view.vue
- * @Description  : 
+ * @Description  : Home-view
 -->
 <template>
   <div class="home-view page">
