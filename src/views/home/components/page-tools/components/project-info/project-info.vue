@@ -2,18 +2,18 @@
  * @Author       : zxlin
  * @Date         : 2023-05-01 02:45:54
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-01 13:59:22
+ * @LastEditTime : 2023-05-02 16:48:15
  * @FilePath     : /h5-auto/src/views/home/components/page-tools/components/project-info/project-info.vue
  * @Description  : project-info
 -->
 <template>
   <div class="project-info">
     <span>
-      <el-select v-model="currentProject" placeholder="Select" size="small">
+      <el-select v-model="currentProject" placeholder="请选择项目" size="small">
         <el-option
           v-for="item in projectList"
           :key="item.id"
-          :label="item.value"
+          :label="item.name"
           :value="item.id"
         />
       </el-select>
@@ -21,9 +21,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
-const currentProject = ref('1');
-const projectList = ref([{ id: '1', value: '项目一' }]);
+import { useStore } from 'vuex';
+import useProject from '@/views/home/hooks/useProject';
+const store = useStore();
+const { currentProject, projectList } = useProject(store);
 </script>
 <style scoped>
 .project-info {

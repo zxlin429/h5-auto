@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 10:02:16
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-04-28 23:49:10
+ * @LastEditTime : 2023-05-03 19:07:52
  * @FilePath     : /h5-auto/src/views/home/components/dev-tools/components/banner/banner-view.vue
  * @Description  : 
 -->
@@ -139,6 +139,10 @@ const resetVisible = ref(false);
   height: var(--main-height);
   border-bottom: 1px solid rgb(202, 205, 209);
   padding: 0 10px;
+}
+.main .el-row {
+  width: 480px;
+  margin: auto;
 }
 .tail {
   height: var(--tail-height);

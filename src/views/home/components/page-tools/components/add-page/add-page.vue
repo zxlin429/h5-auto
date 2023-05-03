@@ -2,13 +2,13 @@
  * @Author       : zxlin
  * @Date         : 2023-05-01 02:25:54
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-01 02:44:59
+ * @LastEditTime : 2023-05-02 16:54:50
  * @FilePath     : /h5-auto/src/views/home/components/page-tools/components/add-page/add-page.vue
  * @Description  : add-page
 -->
 <template>
   <div class="add-page">
-    <div class="add">
+    <div class="add" @click="currentProjectObject.addPage()">
       <el-icon><Plus /></el-icon>
       <span>添加页面</span>
     </div>
@@ -16,6 +16,10 @@
 </template>
 <script setup lang="ts">
 import { Plus } from '@element-plus/icons-vue';
+import { useStore } from 'vuex';
+import useProject from '@/views/home/hooks/useProject';
+const store = useStore();
+const { currentProjectObject } = useProject(store);
 </script>
 <style scoped>
 .add-page {
