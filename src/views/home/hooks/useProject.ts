@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:57:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-03 20:59:31
+ * @LastEditTime : 2023-05-03 21:15:39
  * @FilePath     : /h5-auto/src/views/home/hooks/useProject.ts
  * @Description  : 
  */
@@ -15,19 +15,18 @@ export default function(store:Store<any>){
   class Project {
     id = btoa(`${(Math.random() * 100000000).toFixed()}-${new Date().getTime()}`)
     name:string
-    assetsBaseUrl = '/' // 静态资源地址
-    isRequire = false
-    pageList:Page[] = []
-    static projectNumber = 0
-    constructor(name = '',assetsBaseUrl='',isRequire = false){
-      Project.projectNumber ++
-      if(!name){
-        name = `项目${Project.projectNumber}`
-      }
+    assetsBaseUrl// 静态资源地址
+    isRequire
+    pageList:Page[]
+    constructor(name = '新建项目',assetsBaseUrl='/',isRequire = false,pageList:Page[] = [],isNewProject = true){
       this.name = name
       this.assetsBaseUrl = assetsBaseUrl
       this.isRequire = isRequire
-      store.commit('project/handleAddProject', this)
+      this.pageList = pageList
+      if(isNewProject){
+        store.commit('project/handleAddProject', this)
+      }
+      
     }
     deleteProject(){
       store.commit('project/handleDeleteProject', this)
@@ -70,11 +69,10 @@ export default function(store:Store<any>){
     name:string
     bgUrl = '' //背景图
     thumbnail = '' //缩略图
-    elementList = []
-
-    constructor(name:string){
-
+    elementList
+    constructor(name:string,elementList = []){
       this.name = name
+      this.elementList = elementList
     }
   }
   const currentProject = computed({
