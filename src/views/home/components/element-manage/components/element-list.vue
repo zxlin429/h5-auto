@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-04 15:54:30
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-04 16:57:54
+ * @LastEditTime : 2023-05-04 17:09:24
  * @FilePath     : \h5-auto\src\views\home\components\element-manage\components\element-list.vue
  * @Description  : 元素列表
 -->
@@ -156,6 +156,10 @@ const imgsArr = ref([
 }
 .waterfall-item:hover .element-btn {
   display: flex;
+}
+::v-deep .waterfall-item:hover {
+  cursor: pointer;
+  border: 1px solid;
 }
 *::-webkit-scrollbar {
   width: 0px;
