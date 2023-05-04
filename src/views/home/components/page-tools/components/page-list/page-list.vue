@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-01 02:26:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-04 10:34:40
+ * @LastEditTime : 2023-05-04 17:16:00
  * @FilePath     : \h5-auto\src\views\home\components\page-tools\components\page-list\page-list.vue
  * @Description  : page-list
 -->
@@ -73,10 +73,7 @@ onMounted(() => {
   position: absolute;
   width: 160px;
   height: 294px;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  inset: 0;
   margin: auto;
 }
 </style>

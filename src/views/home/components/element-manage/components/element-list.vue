@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-04 15:54:30
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-04 17:09:24
+ * @LastEditTime : 2023-05-04 17:14:32
  * @FilePath     : \h5-auto\src\views\home\components\element-manage\components\element-list.vue
  * @Description  : 元素列表
 -->
@@ -11,6 +11,7 @@
     <div class="title-banner">已上传组件</div>
     <div class="waterfall-box">
       <waterfall
+        v-if="imgsArr.length > 0"
         :list="imgsArr"
         :width="129"
         :breakpoints="{
@@ -51,6 +52,9 @@
           </div>
         </template>
       </waterfall>
+      <div class="empty" v-else>
+        <el-empty description="暂无组件" :image-size="100" />
+      </div>
     </div>
   </div>
 </template>
@@ -120,6 +124,7 @@ const imgsArr = ref([
   flex: 1;
   overflow-x: hidden;
   overflow-y: auto;
+  position: relative;
 }
 .element-btn {
   height: 20px;
@@ -164,5 +169,11 @@ const imgsArr = ref([
 *::-webkit-scrollbar {
   width: 0px;
   height: 0px;
+}
+.empty {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 227px;
 }
 </style>
