@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:59:15
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-04 10:31:47
+ * @LastEditTime : 2023-05-04 14:42:57
  * @FilePath     : \h5-auto\src\store\modules\project.ts
  * @Description  : 项目管理
  */
@@ -30,7 +30,7 @@ export default {
     },
     handleDeleteProject(state:any,project:any){
       const index = state.projectList.indexOf(project)
-      if(index){
+      if(index >= 0){
         state.projectList.splice(index,1)
         if(state.projectList?.length === 0){
           state.currentProject = ''
@@ -48,6 +48,12 @@ export default {
       }
       
     },
+    handleChangeProject(state:any,{project,changeObj}:any){
+      const current = state.projectList.find((i:{id:string})=>i.id === project.id)
+      current.name = changeObj.name
+      current.assetsBaseUrl = changeObj.assetsBaseUrl
+      current.isRequire = changeObj.isRequire
+    },
     changeCurrentPage(state:any,pageId:string){
       state.currentPage = pageId
     },
@@ -62,8 +68,8 @@ export default {
         state.currentPage = project.pageList[0].id
       }
     },
-    handleObserver(state:any){
-        state
+    handleObserver(){
+        //
     }
    },
   actions: {  },

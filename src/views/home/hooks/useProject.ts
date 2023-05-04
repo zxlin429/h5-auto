@@ -2,14 +2,12 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:57:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-04 10:19:31
+ * @LastEditTime : 2023-05-04 14:41:20
  * @FilePath     : \h5-auto\src\views\home\hooks\useProject.ts
  * @Description  : 
  */
 import { computed } from 'vue'
 import { Store } from 'vuex';
-
-
 
 export default function(store:Store<any>){
   class Project {
@@ -20,8 +18,8 @@ export default function(store:Store<any>){
     pageList:Page[]
     constructor(name = '新建项目',assetsBaseUrl='/',isRequire = false,pageList:Page[] = [],id:string = btoa(`${(Math.random() * 100000000).toFixed()}-${new Date().getTime()}`),isNewProject = true){
       this.id = id
-      this.name = name
-      this.assetsBaseUrl = assetsBaseUrl
+      this.name = name || '新建项目'
+      this.assetsBaseUrl = assetsBaseUrl || '/'
       this.isRequire = isRequire
       this.pageList = pageList
       if(isNewProject){
@@ -78,6 +76,9 @@ export default function(store:Store<any>){
   function deleteProject(project:Project){
     store.commit('project/handleDeleteProject', project)
   }
+  function changeProject(project:Project,changeObj:any){
+    store.commit('project/handleChangeProject', {project,changeObj})
+  }
   function addPage(project:Project){
     const page = new Page('新建页面')
     project.pageList.push(page)
@@ -125,6 +126,7 @@ export default function(store:Store<any>){
     currentPageObject,
     currentElementObject,
     deleteProject,
+    changeProject,
     addPage,
     addPageAfter,
     deletePage,
