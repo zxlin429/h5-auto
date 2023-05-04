@@ -2,8 +2,8 @@
  * @Author       : zxlin
  * @Date         : 2023-05-01 14:07:41
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-02 18:00:32
- * @FilePath     : /h5-auto/src/views/home/components/page-tools/components/page-list/components/page-main.vue
+ * @LastEditTime : 2023-05-04 10:24:50
+ * @FilePath     : \h5-auto\src\views\home\components\page-tools\components\page-list\components\page-main.vue
  * @Description  : page-main
 -->
 <template>
@@ -18,7 +18,7 @@
         <div class="phone-main-min">
           <div
             class="add-page"
-            @click.stop="currentProjectObject.addPageAfter(pageInfo.id)"
+            @click.stop="addPageAfter(currentProjectObject, pageInfo.id)"
           >
             <el-icon><Plus /></el-icon>
           </div>
@@ -35,7 +35,7 @@
     <delete-page
       v-model="deleteVisible"
       v-if="deleteVisible"
-      @delete="currentProjectObject.deletePage(pageInfo.id)"
+      @delete="deletePage(currentProjectObject, pageInfo.id)"
     ></delete-page>
   </div>
 </template>
@@ -46,7 +46,8 @@ import DeletePage from './delete-page.vue';
 import { useStore } from 'vuex';
 import useProject from '@/views/home/hooks/useProject';
 const store = useStore();
-const { currentPage, currentProjectObject } = useProject(store);
+const { currentPage, currentProjectObject, deletePage, addPageAfter } =
+  useProject(store);
 const deleteVisible = ref(false);
 const props = defineProps({
   pageInfo: {

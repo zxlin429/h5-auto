@@ -2,8 +2,8 @@
  * @Author       : zxlin
  * @Date         : 2023-05-01 02:26:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-02 18:50:55
- * @FilePath     : /h5-auto/src/views/home/components/page-tools/components/page-list/page-list.vue
+ * @LastEditTime : 2023-05-04 10:34:40
+ * @FilePath     : \h5-auto\src\views\home\components\page-tools\components\page-list\page-list.vue
  * @Description  : page-list
 -->
 <template>
@@ -29,7 +29,7 @@ import Sortable from 'sortablejs';
 import { useStore } from 'vuex';
 import useProject from '@/views/home/hooks/useProject';
 const store = useStore();
-const { currentProjectObject, currentPage } = useProject(store);
+const { currentProjectObject, currentPage, handleObserver } = useProject(store);
 const pageList = computed(() => {
   return currentProjectObject.value.pageList || [];
 });
@@ -46,6 +46,7 @@ onMounted(() => {
           1
         );
         pageList.value.splice(event.newIndex as number, 0, reorderedItem);
+        handleObserver();
       },
     });
   }

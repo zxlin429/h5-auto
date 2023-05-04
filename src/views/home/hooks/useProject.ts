@@ -2,8 +2,8 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:57:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-03 22:55:36
- * @FilePath     : /h5-auto/src/views/home/hooks/useProject.ts
+ * @LastEditTime : 2023-05-04 10:19:31
+ * @FilePath     : \h5-auto\src\views\home\hooks\useProject.ts
  * @Description  : 
  */
 import { computed } from 'vue'
@@ -30,41 +30,6 @@ export default function(store:Store<any>){
         this.id = id
       }
       
-    }
-    deleteProject(){
-      store.commit('project/handleDeleteProject', this)
-    }
-    addPage(){
-      const page = new Page('新建页面')
-      this.pageList.push(page)
-      store.commit('project/changeCurrentPage', page.id)
-    }
-    addPageAfter(pageId:string){
-      const oldPage = this.pageList.find(i=>i.id === pageId)
-      if(oldPage){
-        const index = this.pageList.indexOf(oldPage)
-        if(index>=0){
-          const newPage = new Page('新建页面')
-          this.pageList.splice(index + 1,0,newPage)
-          store.commit('project/changeCurrentPage', newPage.id)
-        }
-      }
-    }
-    deletePage(pageId:string){
-      const page = this.pageList.find(i=>i.id === pageId)
-      if(page){
-        const index = this.pageList.indexOf(page)
-        if(index>=0){
-          this.pageList.splice(index,1)
-        }
-        if(this.pageList?.length === 0){
-          store.commit('project/changeCurrentPage', '')
-        }else{
-          if(currentPage.value === pageId){
-            store.commit('project/changeCurrentPage', this.pageList[0].id)
-          }
-        }
-      }
     }
   }
   class Page {
@@ -110,7 +75,45 @@ export default function(store:Store<any>){
   const currentElementObject = computed(()=>{
     return store.getters['project/currentElementObject']
   })
-
+  function deleteProject(project:Project){
+    store.commit('project/handleDeleteProject', project)
+  }
+  function addPage(project:Project){
+    const page = new Page('新建页面')
+    project.pageList.push(page)
+    store.commit('project/changeCurrentPage', page.id)
+  }
+  function addPageAfter(project:Project,pageId:string){
+    const oldPage = project.pageList.find(i=>i.id === pageId)
+    if(oldPage){
+      const index = project.pageList.indexOf(oldPage)
+      if(index>=0){
+        const newPage = new Page('新建页面')
+        project.pageList.splice(index + 1,0,newPage)
+        store.commit('project/changeCurrentPage', newPage.id)
+      }
+    }
+  }
+  function deletePage(project:Project,pageId:string){
+    const page = project.pageList.find(i=>i.id === pageId)
+    if(page){
+      const index = project.pageList.indexOf(page)
+      if(index>=0){
+        project.pageList.splice(index,1)
+      }
+      if(project.pageList?.length === 0){
+        store.commit('project/changeCurrentPage', '')
+      }else{
+        if(currentPage.value === pageId){
+          store.commit('project/changeCurrentPage', project.pageList[0].id)
+        }
+      }
+    }
+  }
+  // 触发vuex持久化更新
+  function handleObserver(){
+    store.commit('project/handleObserver')
+  }
   return {
     Project,
     Page,
@@ -120,6 +123,11 @@ export default function(store:Store<any>){
     projectList,
     currentProjectObject,
     currentPageObject,
-    currentElementObject
+    currentElementObject,
+    deleteProject,
+    addPage,
+    addPageAfter,
+    deletePage,
+    handleObserver
   }
 }

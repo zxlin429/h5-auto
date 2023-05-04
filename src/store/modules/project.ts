@@ -2,8 +2,8 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:59:15
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-02 19:04:51
- * @FilePath     : /h5-auto/src/store/modules/project.ts
+ * @LastEditTime : 2023-05-04 10:31:47
+ * @FilePath     : \h5-auto\src\store\modules\project.ts
  * @Description  : 项目管理
  */
 
@@ -61,6 +61,9 @@ export default {
       }else{
         state.currentPage = project.pageList[0].id
       }
+    },
+    handleObserver(state:any){
+        state
     }
    },
   actions: {  },

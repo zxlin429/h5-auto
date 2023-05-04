@@ -2,8 +2,8 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 22:15:26
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-02 18:17:14
- * @FilePath     : /h5-auto/src/views/home/components/element-tools/components/phone-console/phone-console.vue
+ * @LastEditTime : 2023-05-04 10:37:53
+ * @FilePath     : \h5-auto\src\views\home\components\element-tools\components\phone-console\phone-console.vue
  * @Description  : 页面控制台
 -->
 <template>
@@ -13,7 +13,11 @@
       <el-row>
         <el-col :span="24">
           <label class="title console-box">
-            <input type="text" v-model="currentPageObject.name" />
+            <input
+              type="text"
+              v-model="currentPageObject.name"
+              @blur="handleObserver()"
+            />
             <span>标题</span>
           </label>
         </el-col>
@@ -50,7 +54,7 @@
         <el-col :span="12">
           <label
             class="add console-box"
-            @click="currentProjectObject.addPageAfter(currentPage)"
+            @click="addPageAfter(currentProjectObject, currentPage)"
           >
             <input type="text" value="+" disabled />
             <span>添加页面</span>
@@ -69,8 +73,13 @@ import useTypeList from '@/views/home/hooks/useTypeList';
 import useProject from '@/views/home/hooks/useProject';
 const store = useStore();
 let { currentTypeObject } = useTypeList(store);
-const { currentPage, currentPageObject, currentProjectObject } =
-  useProject(store);
+const {
+  currentPage,
+  currentPageObject,
+  currentProjectObject,
+  addPageAfter,
+  handleObserver,
+} = useProject(store);
 </script>
 <style scoped>
 .phone-console {
