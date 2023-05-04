@@ -2,12 +2,16 @@
  * @Author       : zxlin
  * @Date         : 2023-04-27 14:39:17
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-03 19:15:09
- * @FilePath     : /h5-auto/src/views/home/Home-view.vue
+ * @LastEditTime : 2023-05-04 15:26:02
+ * @FilePath     : \h5-auto\src\views\home\Home-view.vue
  * @Description  : Home-view
 -->
 <template>
   <div class="home-view page">
+    <!-- 元素管理区 -->
+    <div class="element-manage">
+      <element-manage></element-manage>
+    </div>
     <!-- 设备操作区 -->
     <div class="dev-tools">
       <dev-tools></dev-tools>
@@ -28,7 +32,7 @@
           <page-tools></page-tools>
         </el-tab-pane>
         <el-tab-pane label="图层管理" name="element">
-          <!-- 页面管理 -->
+          <!-- 图层管理 -->
           <page-manage></page-manage>
         </el-tab-pane>
       </el-tabs>
@@ -38,6 +42,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import ElementManage from './components/element-manage/element-manage.vue';
 import DevTools from './components/dev-tools/dev-tools.vue';
 import ElementTools from './components/element-tools/element-tools.vue';
 import PageTools from './components/page-tools/page-tools.vue';
@@ -53,6 +58,10 @@ const activeTabsName = ref('page');
 .home-view > * {
   height: 100%;
 }
+.element-manage {
+  width: 288px;
+  flex-shrink: 0;
+}
 .dev-tools {
   min-width: 480px;
   flex: 1;
@@ -64,7 +73,6 @@ const activeTabsName = ref('page');
 .manage-tools {
   width: 260px;
   flex-shrink: 0;
-  border-right: 1px solid rgb(202, 205, 209);
 }
 ::v-deep .el-tabs {
   height: 100%;
