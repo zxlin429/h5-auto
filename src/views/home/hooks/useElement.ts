@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-05 09:40:03
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-05 12:00:08
+ * @LastEditTime : 2023-05-05 14:46:51
  * @FilePath     : \h5-auto\src\views\home\hooks\useElement.ts
  * @Description  : 元素
  */
@@ -60,6 +60,21 @@ export function saveImg(store:any){
         await setKey(id,baseUrl)
         resolve(true)
       }
+    })
+  }
+}
+export function updateImg(store:any){
+  return async function(id:string,path:string){
+    let elementList:any = await getElementList()
+    if(!elementList){
+      elementList = []
+    }
+    const element = elementList.find((i:{id:string})=>i.id === id)
+    if(element){
+      element.path = path
+    }
+    await setElementList(elementList).then(()=>{
+      store.commit('imgList/changeImgList',elementList)
     })
   }
 }
