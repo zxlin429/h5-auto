@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-05 15:17:40
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-05 15:34:45
+ * @LastEditTime : 2023-05-05 16:21:47
  * @FilePath     : \h5-auto\src\views\home\components\element-manage\components\preview-img.vue
  * @Description  : 预览图片
 -->
@@ -44,7 +44,7 @@ function handleChangeDialogVisible(value: boolean) {
 }
 ::v-deep .el-image img {
   -webkit-user-drag: none;
-  max-width: 100vw;
-  max-height: 100vh;
+  max-width: 95vw;
+  max-height: 95vh;
 }
 </style>

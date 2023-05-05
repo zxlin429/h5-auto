@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-05 10:32:59
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-05 15:29:51
+ * @LastEditTime : 2023-05-05 16:28:17
  * @FilePath     : \h5-auto\src\views\home\components\element-manage\components\add-img.vue
  * @Description  : 添加图片
 -->
@@ -74,12 +74,19 @@ async function handleClose() {
     });
     return false;
   }
-  await saveImg(store)(file.value.files, imgInfo.value.path);
-  handleChangeDialogVisible(false);
-  ElMessage({
-    message: '添加成功',
-    type: 'success',
-  });
+  const res = await saveImg(store)(file.value.files, imgInfo.value.path);
+  if (res) {
+    handleChangeDialogVisible(false);
+    ElMessage({
+      message: '添加成功',
+      type: 'success',
+    });
+  } else {
+    ElMessage({
+      message: '添加失败',
+      type: 'error',
+    });
+  }
 }
 function handleChangeDialogVisible(value: boolean) {
   emits('update:modelValue', value);
