@@ -14,9 +14,13 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import '@/styles/index.css'
 
+// vue拖拽库
+import Vue3DraggableResizable from 'vue3-draggable-resizable'
+import 'vue3-draggable-resizable/dist/Vue3DraggableResizable.css'
 
 createApp(App)
 .use(store)
 .use(router)
 .use(ElementPlus)
+.use(Vue3DraggableResizable)
 .mount('#app')
