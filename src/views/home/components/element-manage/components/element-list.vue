@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-04 15:54:30
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-05 14:21:30
+ * @LastEditTime : 2023-05-05 15:30:39
  * @FilePath     : \h5-auto\src\views\home\components\element-manage\components\element-list.vue
  * @Description  : 元素列表
 -->
@@ -42,7 +42,12 @@
                 </div>
               </el-col>
               <el-col :span="12">
-                <div>
+                <div
+                  @click="
+                    previewImgVisible = true;
+                    previewImgId = item.id;
+                  "
+                >
                   <el-tooltip
                     class="box-item"
                     effect="dark"
@@ -67,10 +72,16 @@
     :setImgId="setImgId"
     v-if="setImgVisible"
   ></set-img>
+  <preview-img
+    v-if="previewImgVisible"
+    v-model="previewImgVisible"
+    :previewImgId="previewImgId"
+  ></preview-img>
 </template>
 <script setup lang="ts">
 import { computed, ref, Ref, watchEffect } from 'vue';
 import SetImg from './set-img.vue';
+import PreviewImg from './preview-img.vue';
 import { LazyImg, Waterfall } from 'vue-waterfall-plugin-next';
 import { Setting, View } from '@element-plus/icons-vue';
 import 'vue-waterfall-plugin-next/dist/style.css';
@@ -96,6 +107,8 @@ watchEffect(() => {
 });
 const setImgVisible = ref(false);
 const setImgId = ref('');
+const previewImgVisible = ref(false);
+const previewImgId = ref('');
 </script>
 <style scoped>
 .element-list {
