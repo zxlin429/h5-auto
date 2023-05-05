@@ -2,12 +2,12 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 15:34:36
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-04-28 23:49:14
- * @FilePath     : /h5-auto/src/views/home/components/dev-tools/components/banner/components/reset-type.vue
+ * @LastEditTime : 2023-05-05 10:34:08
+ * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\banner\components\reset-type.vue
  * @Description  : 
 -->
 <template>
-  <div class="add-type">
+  <div class="reset-type">
     <el-dialog v-model="dialogVisible" title="重置" width="400px">
       是否重置移动设备列表?
       <template #footer>

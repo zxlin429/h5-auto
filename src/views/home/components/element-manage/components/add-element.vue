@@ -2,13 +2,13 @@
  * @Author       : zxlin
  * @Date         : 2023-05-04 15:12:56
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-04 15:51:11
+ * @LastEditTime : 2023-05-05 10:56:15
  * @FilePath     : \h5-auto\src\views\home\components\element-manage\components\add-element.vue
  * @Description  : 元素添加
 -->
 <template>
   <div class="add-element">
-    <div class="ele img">
+    <div class="ele img" @click="addElementVisible = true">
       <el-icon :size="20"><PictureFilled /></el-icon>
       <span>图片</span>
     </div>
@@ -17,9 +17,13 @@
       <span>文字</span>
     </div>
   </div>
+  <add-img v-if="addElementVisible" v-model="addElementVisible"></add-img>
 </template>
 <script setup lang="ts">
 import { PictureFilled, EditPen } from '@element-plus/icons-vue';
+import AddImg from './add-img.vue';
+import { ref } from 'vue';
+const addElementVisible = ref(false);
 </script>
 <style scoped>
 .add-element {

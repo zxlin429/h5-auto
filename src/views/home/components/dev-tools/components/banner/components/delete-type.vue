@@ -2,12 +2,12 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 14:46:35
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-04-28 23:49:21
- * @FilePath     : /h5-auto/src/views/home/components/dev-tools/components/banner/components/delete-type.vue
+ * @LastEditTime : 2023-05-05 10:33:57
+ * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\banner\components\delete-type.vue
  * @Description  : 
 -->
 <template>
-  <div class="add-type">
+  <div class="delete-type">
     <el-dialog v-model="dialogVisible" title="删除" width="400px">
       是否删除此移动设备?
       <template #footer>

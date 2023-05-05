@@ -2,8 +2,8 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 13:43:48
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-04-28 23:49:25
- * @FilePath     : /h5-auto/src/views/home/components/dev-tools/components/banner/components/add-type.vue
+ * @LastEditTime : 2023-05-05 10:49:32
+ * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\banner\components\add-type.vue
  * @Description  : 
 -->
 <template>
@@ -118,5 +118,9 @@ const phoneInfo = ref({
 <style scoped>
 .el-row + .el-row {
   margin-top: 10px;
+}
+.el-col-4 {
+  display: flex;
+  align-items: center;
 }
 </style>

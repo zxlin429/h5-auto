@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 11:41:17
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-04-28 15:40:08
+ * @LastEditTime : 2023-05-05 11:26:07
  * @FilePath     : \h5-auto\src\store\modules\devTools.ts
  * @Description  : 设备尺寸管理
  */
