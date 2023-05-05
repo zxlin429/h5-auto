@@ -2,13 +2,27 @@
  * @Author       : zxlin
  * @Date         : 2023-05-04 15:54:30
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-05 15:30:39
+ * @LastEditTime : 2023-05-05 17:16:21
  * @FilePath     : \h5-auto\src\views\home\components\element-manage\components\element-list.vue
  * @Description  : 元素列表
 -->
 <template>
   <div class="element-list">
-    <div class="title-banner">已上传组件</div>
+    <div class="title-banner">
+      <div>已上传组件</div>
+      <div class="clear">
+        <el-popconfirm
+          title="是否清空已上传的组件?"
+          @confirm="clearImg(store)()"
+          confirm-button-text="确认"
+          cancel-button-text="取消"
+        >
+          <template #reference>
+            <el-icon><Delete /></el-icon>
+          </template>
+        </el-popconfirm>
+      </div>
+    </div>
     <div class="waterfall-box">
       <waterfall
         v-if="imgsArr.length > 0"
@@ -83,9 +97,9 @@ import { computed, ref, Ref, watchEffect } from 'vue';
 import SetImg from './set-img.vue';
 import PreviewImg from './preview-img.vue';
 import { LazyImg, Waterfall } from 'vue-waterfall-plugin-next';
-import { Setting, View } from '@element-plus/icons-vue';
+import { Setting, View, Delete } from '@element-plus/icons-vue';
 import 'vue-waterfall-plugin-next/dist/style.css';
-import { getKey } from '@/views/home/hooks/useElement';
+import { getKey, clearImg } from '@/views/home/hooks/useElement';
 import { useStore } from 'vuex';
 const store = useStore();
 const imgList = computed(() => {
@@ -123,6 +137,7 @@ const previewImgId = ref('');
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 .waterfall-box {
   flex: 1;
@@ -192,5 +207,16 @@ const previewImgId = ref('');
       #eee 100%
     ),
     linear-gradient(45deg, #eee 25%, white 25%, white 75%, #eee 75%, #eee 100%);
+}
+.clear {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #f56c6c;
+  cursor: pointer;
+}
+.clear i {
+  transform: translateY(2px);
 }
 </style>

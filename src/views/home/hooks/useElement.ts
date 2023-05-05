@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-05 09:40:03
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-05 14:46:51
+ * @LastEditTime : 2023-05-05 17:10:10
  * @FilePath     : \h5-auto\src\views\home\hooks\useElement.ts
  * @Description  : 元素
  */
@@ -91,5 +91,14 @@ export function removeImg(store:any){
       store.commit('imgList/changeImgList',elementList)
     })
     await removeKey(id)
+  }
+}
+
+export function clearImg(store:any){
+  return async function(){
+    const elementList:any = []
+    await localforage.clear().then(()=>{
+      store.commit('imgList/changeImgList',elementList)
+    })
   }
 }
