@@ -2,13 +2,13 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:57:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-04 14:41:20
+ * @LastEditTime : 2023-05-09 11:50:57
  * @FilePath     : \h5-auto\src\views\home\hooks\useProject.ts
  * @Description  : 
  */
 import { computed } from 'vue'
 import { Store } from 'vuex';
-
+import { getKey } from '@/views/home/hooks/useElement';
 export default function(store:Store<any>){
   class Project {
     id:string
@@ -42,6 +42,34 @@ export default function(store:Store<any>){
       this.elementList = elementList
     }
   }
+
+  class Element {
+    id:string
+    uid:string
+    path:string
+    width:number
+    height:number
+    x:number
+    y:number
+    zIndex:number
+    opacity:number
+    role:number
+    active:boolean
+    constructor(uid:string,path:string,width:number,height:number,x=0,y=0,zIndex=1,opacity = 1,role=0,active=false,id= btoa(`${(Math.random() * 100000000).toFixed()}/${new Date().getTime()}`)){
+      this.id = id
+      this.uid = uid
+      this.path = path
+      this.width = width
+      this.height = height
+      this.x = x
+      this.y = y
+      this.zIndex = zIndex
+      this.opacity = opacity
+      this.role = role
+      this.active = active
+    }
+  }
+
   const currentProject = computed({
     get:()=>{
       return store.state.project.currentProject
@@ -111,6 +139,21 @@ export default function(store:Store<any>){
       }
     }
   }
+  async function addElement(item:any){
+    await getKey(item.id).then((res) => {
+      const img = new Image();
+      img.src = res as string;
+      img.onload = function () {
+        const element = new Element(item.id, item.path, img.width * (200 / img.width), img.height * (200 / img.width));
+        currentPageObject.value.elementList.push(element)
+        changeCurrentElement(element.id)
+      };
+    });
+    
+  }
+  function changeCurrentElement(elementId:string){
+    store.commit('project/changeCurrentElement', elementId)
+  }
   // 触发vuex持久化更新
   function handleObserver(){
     store.commit('project/handleObserver')
@@ -118,6 +161,7 @@ export default function(store:Store<any>){
   return {
     Project,
     Page,
+    Element,
     currentProject,
     currentPage,
     currentElement,
@@ -130,6 +174,8 @@ export default function(store:Store<any>){
     addPage,
     addPageAfter,
     deletePage,
+    addElement,
+    changeCurrentElement,
     handleObserver
   }
 }

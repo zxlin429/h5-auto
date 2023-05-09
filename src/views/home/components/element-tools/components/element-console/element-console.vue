@@ -2,8 +2,8 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 22:15:26
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-04-30 16:46:49
- * @FilePath     : /h5-auto/src/views/home/components/element-tools/components/element-console/element-console.vue
+ * @LastEditTime : 2023-05-09 12:09:08
+ * @FilePath     : \h5-auto\src\views\home\components\element-tools\components\element-console\element-console.vue
  * @Description  : 页面控制台
 -->
 <template>
@@ -13,13 +13,13 @@
     <el-row class="size">
       <el-col :span="12">
         <label class="Width console-box">
-          <input type="text" value="200" />
+          <input type="text" :value="currentElementObject.width" />
           <span>Width</span>
         </label>
       </el-col>
       <el-col :span="12">
         <label class="Height console-box">
-          <input type="text" value="100" />
+          <input type="text" :value="currentElementObject.height" />
           <span>Height</span>
         </label>
       </el-col>
@@ -27,13 +27,13 @@
     <el-row class="size">
       <el-col :span="12">
         <label class="x-left console-box">
-          <input type="text" value="10" />
+          <input type="text" :value="currentElementObject.x" />
           <span>X</span>
         </label>
       </el-col>
       <el-col :span="12">
         <label class="y-top console-box">
-          <input type="text" value="20" />
+          <input type="text" :value="currentElementObject.y" />
           <span>Y</span>
         </label>
       </el-col>
@@ -41,21 +41,21 @@
     <el-row class="size">
       <el-col :span="12">
         <label class="z-index console-box">
-          <input type="text" value="1" />
+          <input type="text" :value="currentElementObject.zIndex" />
           <span>z-index</span>
         </label>
       </el-col>
       <el-col :span="12">
         <label class="option console-box">
-          <input type="text" value="100" />
+          <input type="text" :value="currentElementObject.opacity" />
           <span>Opacity</span>
         </label>
       </el-col>
     </el-row>
     <el-row class="size">
       <el-col :span="12">
-        <label class="z-index console-box">
-          <input type="text" value="180" />
+        <label class="role console-box">
+          <input type="text" :value="currentElementObject.role" />
           <el-progress
             type="circle"
             :percentage="10"
@@ -139,7 +139,12 @@
     </el-row>
   </div>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import useProject from '@/views/home/hooks/useProject';
+import { useStore } from 'vuex';
+const store = useStore();
+const { currentElementObject } = useProject(store);
+</script>
 <style scoped>
 .element-console {
   padding: 10px 0;

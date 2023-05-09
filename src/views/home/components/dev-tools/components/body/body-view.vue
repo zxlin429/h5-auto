@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 20:25:38
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-05 17:55:50
+ * @LastEditTime : 2023-05-09 12:05:43
  * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\body\body-view.vue
  * @Description  : 
 -->
@@ -20,26 +20,40 @@
       }"
     >
       <div class="phone-main">
-        <Vue3DraggableResizable
-          :initW="110"
-          :initH="120"
-          v-model:x="x"
-          v-model:y="y"
-          v-model:w="w"
-          v-model:h="h"
-          v-model:active="active"
-          :draggable="true"
-          :resizable="true"
-          :lockAspectRatio="true"
-          :parent="true"
-        >
-          <img
-            :width="w"
-            :height="h"
-            src="https://testmobile.51wnl-cq.com/may_god/img/gd_cloud.fd9aeeee.png"
-            alt=""
-          />
-        </Vue3DraggableResizable>
+        <DraggableContainer>
+          <div
+            class="element-box"
+            v-for="element in elementList"
+            :key="element.id"
+          >
+            <Vue3DraggableResizable
+              :initW="element.info.width"
+              :initH="element.info.height"
+              v-model:x="element.info.x"
+              v-model:y="element.info.y"
+              v-model:w="element.info.width"
+              v-model:h="element.info.height"
+              v-model:active="element.info.active"
+              :draggable="true"
+              :resizable="true"
+              :lockAspectRatio="true"
+              @activated="print('activated', element)"
+              @deactivated="print('deactivated')"
+              @drag-start="print('drag-start')"
+              @resize-start="print('resize-start')"
+              @dragging="print('dragging')"
+              @resizing="print('resizing')"
+              @drag-end="print('drag-end')"
+              @resize-end="print('resize-end')"
+            >
+              <img
+                :width="element.info.width - 2"
+                :height="element.info.height - 2"
+                :src="element.src"
+              />
+            </Vue3DraggableResizable>
+          </div>
+        </DraggableContainer>
       </div>
     </div>
   </div>
@@ -47,15 +61,44 @@
 <script setup lang="ts">
 import { useStore } from 'vuex';
 import useTypeList from '@/views/home/hooks/useTypeList';
-import { ref } from 'vue';
+import useProject from '@/views/home/hooks/useProject';
+import { ref, watchEffect, Ref } from 'vue';
 const store = useStore();
 let { currentTypeObject, currentPercentage } = useTypeList(store);
-
-const x = ref(0);
-const y = ref(0);
-const w = ref(100);
-const h = ref(100);
-const active = ref(false);
+const { currentPageObject, changeCurrentElement, handleObserver } =
+  useProject(store);
+import { getKey } from '@/views/home/hooks/useElement';
+const elementList: Ref<any[]> = ref([]);
+watchEffect(() => {
+  elementList.value = [];
+  currentPageObject.value.elementList.forEach((i: { uid: string }) => {
+    setTimeout(() => {
+      getKey(i.uid).then((res) => {
+        elementList.value.push({
+          src: res,
+          info: i,
+        });
+      });
+    });
+  });
+});
+function print(val: string, element: any = {}) {
+  if (val === 'activated') {
+    activated(element);
+  }
+  if (val === 'deactivated') {
+    deactivated();
+  }
+  handleObserver();
+}
+function activated(element: any) {
+  setTimeout(() => {
+    changeCurrentElement(element.info.id);
+  });
+}
+function deactivated() {
+  changeCurrentElement('');
+}
 </script>
 <style scoped>
 .styles-variable {

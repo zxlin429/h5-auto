@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-04 15:54:30
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-05 17:16:21
+ * @LastEditTime : 2023-05-09 10:07:53
  * @FilePath     : \h5-auto\src\views\home\components\element-manage\components\element-list.vue
  * @Description  : 元素列表
 -->
@@ -35,7 +35,7 @@
         }"
       >
         <template #item="{ url, item }">
-          <div class="card">
+          <div class="card" @click="handleAddElement(item)">
             <LazyImg :url="url" />
             <el-row class="element-btn">
               <el-col :span="12">
@@ -100,20 +100,23 @@ import { LazyImg, Waterfall } from 'vue-waterfall-plugin-next';
 import { Setting, View, Delete } from '@element-plus/icons-vue';
 import 'vue-waterfall-plugin-next/dist/style.css';
 import { getKey, clearImg } from '@/views/home/hooks/useElement';
+import useProject from '@/views/home/hooks/useProject';
 import { useStore } from 'vuex';
 const store = useStore();
+const { addElement } = useProject(store);
 const imgList = computed(() => {
   return store.state.imgList.imgList;
 });
 const imgsArr: Ref<any[]> = ref([]);
 watchEffect(() => {
   imgsArr.value = [];
-  imgList.value.forEach((i: { id: string }) => {
+  imgList.value.forEach((i: { id: string; path: string }) => {
     setTimeout(() => {
       getKey(i.id).then((res) => {
         imgsArr.value.push({
           src: res,
           id: i.id,
+          path: i.path,
         });
       });
     });
@@ -123,6 +126,10 @@ const setImgVisible = ref(false);
 const setImgId = ref('');
 const previewImgVisible = ref(false);
 const previewImgId = ref('');
+
+function handleAddElement(item: any) {
+  addElement(item);
+}
 </script>
 <style scoped>
 .element-list {
