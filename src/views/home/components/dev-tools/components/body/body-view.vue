@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 20:25:38
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 16:58:27
+ * @LastEditTime : 2023-05-09 17:36:41
  * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\body\body-view.vue
  * @Description  : 
 -->
@@ -67,15 +67,16 @@
   </div>
 </template>
 <script setup lang="ts">
+import html2Canvas from 'html2canvas';
 import { useStore } from 'vuex';
 import useTypeList from '@/views/home/hooks/useTypeList';
 import useProject from '@/views/home/hooks/useProject';
 import { ref, watchEffect, Ref } from 'vue';
 const store = useStore();
 let { currentTypeObject, currentPercentage } = useTypeList(store);
-const { currentPageObject, changeCurrentElement, handleObserver } =
+const { currentPageObject, changeCurrentElement, handleObserver, currentPage } =
   useProject(store);
-import { getKey } from '@/views/home/hooks/useElement';
+import { getKey, setKey, removeKey } from '@/views/home/hooks/useElement';
 const elementList: Ref<any[]> = ref([]);
 watchEffect(() => {
   elementList.value = [];
@@ -106,6 +107,18 @@ function activated(element: any) {
 }
 function deactivated() {
   // changeCurrentElement('');
+  setTimeout(() => {
+    html2Canvas(document.querySelector('.phone-main') as HTMLElement).then(
+      (canvas) => {
+        removeKey(currentPageObject.value.thumbnail);
+        currentPageObject.value.thumbnail = btoa(
+          `${(Math.random() * 100000000).toFixed()}*${new Date().getTime()}`
+        );
+        let dataURL = canvas.toDataURL('image/png');
+        setKey(currentPageObject.value.thumbnail, dataURL);
+      }
+    );
+  });
 }
 </script>
 <style scoped>

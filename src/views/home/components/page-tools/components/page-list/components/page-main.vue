@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-01 14:07:41
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-04 10:24:50
+ * @LastEditTime : 2023-05-09 17:39:54
  * @FilePath     : \h5-auto\src\views\home\components\page-tools\components\page-list\components\page-main.vue
  * @Description  : page-main
 -->
@@ -16,6 +16,11 @@
       </el-col>
       <el-col :span="8">
         <div class="phone-main-min">
+          <img
+            v-if="pageUrl"
+            :src="pageUrl"
+            style="width: 100%; height: 100%"
+          />
           <div
             class="add-page"
             @click.stop="addPageAfter(currentProjectObject, pageInfo.id)"
@@ -40,10 +45,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { Delete, Plus } from '@element-plus/icons-vue';
 import DeletePage from './delete-page.vue';
 import { useStore } from 'vuex';
+import { getKey } from '@/views/home/hooks/useElement';
 import useProject from '@/views/home/hooks/useProject';
 const store = useStore();
 const { currentPage, currentProjectObject, deletePage, addPageAfter } =
@@ -58,6 +64,16 @@ const props = defineProps({
 });
 const pageInfo = computed(() => {
   return props.pageInfo;
+});
+const pageUrl = ref('');
+watchEffect(() => {
+  if (pageInfo.value.thumbnail) {
+    setTimeout(() => {
+      getKey(pageInfo.value.thumbnail).then((res) => {
+        pageUrl.value = res as string;
+      });
+    });
+  }
 });
 </script>
 
