@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 20:25:38
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 15:30:04
+ * @LastEditTime : 2023-05-09 16:58:27
  * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\body\body-view.vue
  * @Description  : 
 -->
@@ -25,6 +25,10 @@
             class="element-box"
             v-for="element in elementList"
             :key="element.id"
+            style="position: absolute"
+            :style="{
+              zIndex: element.info.zIndex,
+            }"
           >
             <Vue3DraggableResizable
               :initW="element.info.width"
@@ -50,6 +54,10 @@
                 :width="element.info.width - 2"
                 :height="element.info.height - 2"
                 :src="element.src"
+                :style="{
+                  opacity: element.info.opacity,
+                  transform: `rotate(${element.info.rotate || 0}deg)`,
+                }"
               />
             </Vue3DraggableResizable>
           </div>

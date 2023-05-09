@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 22:15:26
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 16:41:33
+ * @LastEditTime : 2023-05-09 16:57:23
  * @FilePath     : \h5-auto\src\views\home\components\element-tools\components\element-console\element-console.vue
  * @Description  : 页面控制台
 -->
@@ -64,20 +64,20 @@
     </el-row>
     <el-row class="size">
       <el-col :span="12">
-        <label class="role console-box">
-          <input type="text" v-model="currentElementObject.role" />
+        <label class="rotate console-box">
+          <input type="text" v-model="currentElementObject.rotate" />
           <el-progress
             type="circle"
-            :percentage="((currentElementObject.role % 360) / 360) * 100"
+            :percentage="((currentElementObject.rotate % 360) / 360) * 100"
             :width="48"
             :stroke-width="2"
             color="#159957"
           />
-          <span>Role</span>
+          <span>Rotate</span>
         </label>
       </el-col>
       <el-col :span="12">
-        <label class="role console-box">
+        <label class="rotate console-box">
           <el-popconfirm
             title="是否删除元素?"
             @confirm="handleDeleteElement"

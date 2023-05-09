@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:57:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 16:09:06
+ * @LastEditTime : 2023-05-09 16:56:27
  * @FilePath     : \h5-auto\src\views\home\hooks\useProject.ts
  * @Description  : 
  */
@@ -55,10 +55,10 @@ export default function(store:Store<any>){
     y:number
     zIndex:number
     opacity:number
-    role:number
+    rotate:number
     active:boolean
     animation:string
-    constructor(uid:string,path:string,width:number,height:number,x=0,y=0,zIndex=1,opacity = 1,role=0,active=false,animation='',id= btoa(`${(Math.random() * 100000000).toFixed()}/${new Date().getTime()}`)){
+    constructor(uid:string,path:string,width:number,height:number,x=0,y=0,zIndex=1,opacity = 1,rotate=0,active=false,animation='',id= btoa(`${(Math.random() * 100000000).toFixed()}/${new Date().getTime()}`)){
       this.id = id
       this.uid = uid
       this.path = path
@@ -68,7 +68,7 @@ export default function(store:Store<any>){
       this.y = y
       this.zIndex = zIndex
       this.opacity = opacity
-      this.role = role
+      this.rotate = rotate
       this.active = active
       this.animation = animation
     }
