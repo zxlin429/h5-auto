@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 20:25:38
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 17:36:41
+ * @LastEditTime : 2023-05-09 17:56:19
  * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\body\body-view.vue
  * @Description  : 
 -->
@@ -74,7 +74,7 @@ import useProject from '@/views/home/hooks/useProject';
 import { ref, watchEffect, Ref } from 'vue';
 const store = useStore();
 let { currentTypeObject, currentPercentage } = useTypeList(store);
-const { currentPageObject, changeCurrentElement, handleObserver, currentPage } =
+const { currentPageObject, changeCurrentElement, handleObserver } =
   useProject(store);
 import { getKey, setKey, removeKey } from '@/views/home/hooks/useElement';
 const elementList: Ref<any[]> = ref([]);
@@ -114,6 +114,7 @@ function deactivated() {
         currentPageObject.value.thumbnail = btoa(
           `${(Math.random() * 100000000).toFixed()}*${new Date().getTime()}`
         );
+        handleObserver();
         let dataURL = canvas.toDataURL('image/png');
         setKey(currentPageObject.value.thumbnail, dataURL);
       }
