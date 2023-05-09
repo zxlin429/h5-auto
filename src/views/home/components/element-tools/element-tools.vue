@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 22:04:53
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 12:06:11
+ * @LastEditTime : 2023-05-09 16:13:21
  * @FilePath     : \h5-auto\src\views\home\components\element-tools\element-tools.vue
  * @Description  : 元素操作区
 -->
@@ -27,5 +27,9 @@ const { currentElement } = useProject(store);
   background: rgb(31, 35, 50);
   padding: 0 15px;
   overflow-y: auto;
+}
+*::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
 }
 </style>

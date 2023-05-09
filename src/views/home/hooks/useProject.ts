@@ -2,10 +2,11 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:57:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 11:50:57
+ * @LastEditTime : 2023-05-09 16:09:06
  * @FilePath     : \h5-auto\src\views\home\hooks\useProject.ts
  * @Description  : 
  */
+import { ElMessage } from 'element-plus';
 import { computed } from 'vue'
 import { Store } from 'vuex';
 import { getKey } from '@/views/home/hooks/useElement';
@@ -24,6 +25,7 @@ export default function(store:Store<any>){
       this.pageList = pageList
       if(isNewProject){
         store.commit('project/handleAddProject', this)
+        changeCurrentElement('')
       }else{
         this.id = id
       }
@@ -55,7 +57,8 @@ export default function(store:Store<any>){
     opacity:number
     role:number
     active:boolean
-    constructor(uid:string,path:string,width:number,height:number,x=0,y=0,zIndex=1,opacity = 1,role=0,active=false,id= btoa(`${(Math.random() * 100000000).toFixed()}/${new Date().getTime()}`)){
+    animation:string
+    constructor(uid:string,path:string,width:number,height:number,x=0,y=0,zIndex=1,opacity = 1,role=0,active=false,animation='',id= btoa(`${(Math.random() * 100000000).toFixed()}/${new Date().getTime()}`)){
       this.id = id
       this.uid = uid
       this.path = path
@@ -67,6 +70,7 @@ export default function(store:Store<any>){
       this.opacity = opacity
       this.role = role
       this.active = active
+      this.animation = animation
     }
   }
 
@@ -84,6 +88,7 @@ export default function(store:Store<any>){
     },
     set:(pageId:string)=>{
       store.commit('project/changeCurrentPage', pageId)
+      changeCurrentElement('')
     }
   })
   const currentElement = computed(()=>{
@@ -103,14 +108,17 @@ export default function(store:Store<any>){
   })
   function deleteProject(project:Project){
     store.commit('project/handleDeleteProject', project)
+    changeCurrentElement('')
   }
   function changeProject(project:Project,changeObj:any){
     store.commit('project/handleChangeProject', {project,changeObj})
+    changeCurrentElement('')
   }
   function addPage(project:Project){
     const page = new Page('新建页面')
     project.pageList.push(page)
     store.commit('project/changeCurrentPage', page.id)
+    changeCurrentElement('')
   }
   function addPageAfter(project:Project,pageId:string){
     const oldPage = project.pageList.find(i=>i.id === pageId)
@@ -120,6 +128,7 @@ export default function(store:Store<any>){
         const newPage = new Page('新建页面')
         project.pageList.splice(index + 1,0,newPage)
         store.commit('project/changeCurrentPage', newPage.id)
+        changeCurrentElement('')
       }
     }
   }
@@ -137,10 +146,18 @@ export default function(store:Store<any>){
           store.commit('project/changeCurrentPage', project.pageList[0].id)
         }
       }
+      changeCurrentElement('')
     }
   }
   async function addElement(item:any){
     await getKey(item.id).then((res) => {
+      if(!currentPage.value){
+        ElMessage({
+          message: '请先创建页面',
+          type: 'error',
+        })
+        return false
+      }
       const img = new Image();
       img.src = res as string;
       img.onload = function () {
@@ -150,6 +167,17 @@ export default function(store:Store<any>){
       };
     });
     
+  }
+
+  function deleteElement(element:any){
+    if(!currentPage.value){
+      return false
+    }
+    const index = currentPageObject.value?.elementList.indexOf(element.value)
+    if(index>=0){
+      currentPageObject.value?.elementList.splice(index,1)
+      handleObserver()
+    }
   }
   function changeCurrentElement(elementId:string){
     store.commit('project/changeCurrentElement', elementId)
@@ -176,6 +204,7 @@ export default function(store:Store<any>){
     deletePage,
     addElement,
     changeCurrentElement,
+    deleteElement,
     handleObserver
   }
 }

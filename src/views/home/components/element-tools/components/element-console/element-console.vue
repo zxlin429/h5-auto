@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 22:15:26
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 12:09:08
+ * @LastEditTime : 2023-05-09 16:41:33
  * @FilePath     : \h5-auto\src\views\home\components\element-tools\components\element-console\element-console.vue
  * @Description  : 页面控制台
 -->
@@ -12,14 +12,24 @@
     <div class="canvas">元素</div>
     <el-row class="size">
       <el-col :span="12">
-        <label class="Width console-box">
-          <input type="text" :value="currentElementObject.width" />
+        <label class="Width console-box cursor-default">
+          <input
+            type="text"
+            class="cursor-default"
+            v-model="currentElementObject.width"
+            disabled
+          />
           <span>Width</span>
         </label>
       </el-col>
       <el-col :span="12">
-        <label class="Height console-box">
-          <input type="text" :value="currentElementObject.height" />
+        <label class="Height console-box cursor-default">
+          <input
+            type="text"
+            class="cursor-default"
+            v-model="currentElementObject.height"
+            disabled
+          />
           <span>Height</span>
         </label>
       </el-col>
@@ -27,13 +37,13 @@
     <el-row class="size">
       <el-col :span="12">
         <label class="x-left console-box">
-          <input type="text" :value="currentElementObject.x" />
+          <input type="text" v-model="currentElementObject.x" />
           <span>X</span>
         </label>
       </el-col>
       <el-col :span="12">
         <label class="y-top console-box">
-          <input type="text" :value="currentElementObject.y" />
+          <input type="text" v-model="currentElementObject.y" />
           <span>Y</span>
         </label>
       </el-col>
@@ -41,13 +51,13 @@
     <el-row class="size">
       <el-col :span="12">
         <label class="z-index console-box">
-          <input type="text" :value="currentElementObject.zIndex" />
+          <input type="text" v-model="currentElementObject.zIndex" />
           <span>z-index</span>
         </label>
       </el-col>
       <el-col :span="12">
         <label class="option console-box">
-          <input type="text" :value="currentElementObject.opacity" />
+          <input type="text" v-model="currentElementObject.opacity" />
           <span>Opacity</span>
         </label>
       </el-col>
@@ -55,15 +65,30 @@
     <el-row class="size">
       <el-col :span="12">
         <label class="role console-box">
-          <input type="text" :value="currentElementObject.role" />
+          <input type="text" v-model="currentElementObject.role" />
           <el-progress
             type="circle"
-            :percentage="10"
+            :percentage="((currentElementObject.role % 360) / 360) * 100"
             :width="48"
             :stroke-width="2"
             color="#159957"
           />
           <span>Role</span>
+        </label>
+      </el-col>
+      <el-col :span="12">
+        <label class="role console-box">
+          <el-popconfirm
+            title="是否删除元素?"
+            @confirm="handleDeleteElement"
+            confirm-button-text="确认"
+            cancel-button-text="取消"
+          >
+            <template #reference>
+              <el-icon class="delete-element" :size="23"><Delete /></el-icon>
+            </template>
+          </el-popconfirm>
+          <span>删除元素</span>
         </label>
       </el-col>
     </el-row>
@@ -73,21 +98,21 @@
           <span>对齐方式</span>
           <div class="box">
             <el-row>
-              <el-col :span="8">
+              <el-col :span="8" @click="xLeft">
                 <div class="align-context align-context-x x-left">
                   <div class="line"></div>
                   <div class="min"></div>
                   <div class="max"></div>
                 </div>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="8" @click="xCenter">
                 <div class="align-context align-context-x x-center">
                   <div class="line"></div>
                   <div class="min"></div>
                   <div class="max"></div>
                 </div>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="8" @click="xRight">
                 <div class="align-context align-context-x x-right">
                   <div class="line"></div>
                   <div class="min"></div>
@@ -96,21 +121,21 @@
               </el-col>
             </el-row>
             <el-row>
-              <el-col :span="8">
+              <el-col :span="8" @click="yLeft">
                 <div class="align-context align-context-y y-left">
                   <div class="line"></div>
                   <div class="min"></div>
                   <div class="max"></div>
                 </div>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="8" @click="yCenter">
                 <div class="align-context align-context-y y-center">
                   <div class="line"></div>
                   <div class="min"></div>
                   <div class="max"></div>
                 </div>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="8" @click="yRight">
                 <div class="align-context align-context-y y-right">
                   <div class="line"></div>
                   <div class="min"></div>
@@ -140,10 +165,45 @@
   </div>
 </template>
 <script setup lang="ts">
+import { Delete } from '@element-plus/icons-vue';
 import useProject from '@/views/home/hooks/useProject';
+import useTypeList from '@/views/home/hooks/useTypeList';
 import { useStore } from 'vuex';
 const store = useStore();
-const { currentElementObject } = useProject(store);
+const { currentElementObject, changeCurrentElement, deleteElement } =
+  useProject(store);
+const { currentTypeObject } = useTypeList(store);
+function handleDeleteElement() {
+  deleteElement(currentElementObject);
+  changeCurrentElement('');
+}
+function xLeft() {
+  currentElementObject.value.x = 0;
+}
+function xCenter() {
+  currentElementObject.value.x = Math.floor(
+    (currentTypeObject.value.size.width - currentElementObject.value.width) / 2
+  );
+}
+function xRight() {
+  currentElementObject.value.x = Math.floor(
+    currentTypeObject.value.size.width - currentElementObject.value.width
+  );
+}
+function yLeft() {
+  currentElementObject.value.y = 0;
+}
+function yCenter() {
+  currentElementObject.value.y = Math.floor(
+    (currentTypeObject.value.size.height - currentElementObject.value.height) /
+      2
+  );
+}
+function yRight() {
+  currentElementObject.value.y = Math.floor(
+    currentTypeObject.value.size.height - currentElementObject.value.height
+  );
+}
 </script>
 <style scoped>
 .element-console {
@@ -161,6 +221,9 @@ const { currentElementObject } = useProject(store);
 }
 .el-row + .el-row {
   margin-top: 8px;
+}
+.cursor-default {
+  cursor: default;
 }
 .size > .el-col-12:nth-child(1) {
   padding-right: 4px;
@@ -319,5 +382,13 @@ const { currentElementObject } = useProject(store);
 }
 .animation .el-col > div:hover {
   color: #f9fafb;
+}
+.delete-element {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  transform: translateY(7px);
+  color: #f56c6c;
+  cursor: pointer;
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-04 15:54:30
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 10:07:53
+ * @LastEditTime : 2023-05-09 15:52:19
  * @FilePath     : \h5-auto\src\views\home\components\element-manage\components\element-list.vue
  * @Description  : 元素列表
 -->
@@ -40,7 +40,7 @@
             <el-row class="element-btn">
               <el-col :span="12">
                 <div
-                  @click="
+                  @click.stop="
                     setImgVisible = true;
                     setImgId = item.id;
                   "
@@ -57,7 +57,7 @@
               </el-col>
               <el-col :span="12">
                 <div
-                  @click="
+                  @click.stop="
                     previewImgVisible = true;
                     previewImgId = item.id;
                   "

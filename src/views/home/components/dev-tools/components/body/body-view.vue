@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 20:25:38
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 12:05:43
+ * @LastEditTime : 2023-05-09 15:30:04
  * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\body\body-view.vue
  * @Description  : 
 -->
@@ -38,7 +38,7 @@
               :resizable="true"
               :lockAspectRatio="true"
               @activated="print('activated', element)"
-              @deactivated="print('deactivated')"
+              @deactivated="print('deactivated', element)"
               @drag-start="print('drag-start')"
               @resize-start="print('resize-start')"
               @dragging="print('dragging')"
@@ -71,7 +71,7 @@ import { getKey } from '@/views/home/hooks/useElement';
 const elementList: Ref<any[]> = ref([]);
 watchEffect(() => {
   elementList.value = [];
-  currentPageObject.value.elementList.forEach((i: { uid: string }) => {
+  currentPageObject.value.elementList?.forEach((i: { uid: string }) => {
     setTimeout(() => {
       getKey(i.uid).then((res) => {
         elementList.value.push({
@@ -97,7 +97,7 @@ function activated(element: any) {
   });
 }
 function deactivated() {
-  changeCurrentElement('');
+  // changeCurrentElement('');
 }
 </script>
 <style scoped>
