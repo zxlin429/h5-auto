@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:57:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 16:56:27
+ * @LastEditTime : 2023-05-10 17:15:33
  * @FilePath     : \h5-auto\src\views\home\hooks\useProject.ts
  * @Description  : 
  */
@@ -58,10 +58,39 @@ export default function(store:Store<any>){
     rotate:number
     active:boolean
     animation:string
+    text = ''
     constructor(uid:string,path:string,width:number,height:number,x=0,y=0,zIndex=1,opacity = 1,rotate=0,active=false,animation='',id= btoa(`${(Math.random() * 100000000).toFixed()}/${new Date().getTime()}`)){
       this.id = id
       this.uid = uid
       this.path = path
+      this.width = width
+      this.height = height
+      this.x = x
+      this.y = y
+      this.zIndex = zIndex
+      this.opacity = opacity
+      this.rotate = rotate
+      this.active = active
+      this.animation = animation
+    }
+  }
+
+  class ElementText {
+    id:string
+    uid:string
+    width:number
+    height:number
+    x:number
+    y:number
+    zIndex:number
+    opacity:number
+    rotate:number
+    active:boolean
+    animation:string
+    text = ''
+    constructor(uid:string,width:number,height:number,x=0,y=0,zIndex=1,opacity = 1,rotate=0,active=false,animation='',id= btoa(`${(Math.random() * 100000000).toFixed()}/${new Date().getTime()}`)){
+      this.id = id
+      this.uid = uid
       this.width = width
       this.height = height
       this.x = x
@@ -149,6 +178,20 @@ export default function(store:Store<any>){
       changeCurrentElement('')
     }
   }
+
+  function addText() {
+    if(!currentPage.value){
+      ElMessage({
+        message: '请先创建页面',
+        type: 'error',
+      })
+      return false
+    }
+    const element = new ElementText('text', 150, 50);
+    currentPageObject.value.elementList.push(element);
+    changeCurrentElement(element.id);
+  }
+
   async function addElement(item:any){
     await getKey(item.id).then((res) => {
       if(!currentPage.value){
@@ -202,6 +245,7 @@ export default function(store:Store<any>){
     addPage,
     addPageAfter,
     deletePage,
+    addText,
     addElement,
     changeCurrentElement,
     deleteElement,

@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-04 15:12:56
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-05 10:56:15
+ * @LastEditTime : 2023-05-10 17:01:14
  * @FilePath     : \h5-auto\src\views\home\components\element-manage\components\add-element.vue
  * @Description  : 元素添加
 -->
@@ -12,7 +12,7 @@
       <el-icon :size="20"><PictureFilled /></el-icon>
       <span>图片</span>
     </div>
-    <div class="ele text">
+    <div class="ele text" @click="addText">
       <el-icon :size="20"><EditPen /></el-icon>
       <span>文字</span>
     </div>
@@ -23,6 +23,10 @@
 import { PictureFilled, EditPen } from '@element-plus/icons-vue';
 import AddImg from './add-img.vue';
 import { ref } from 'vue';
+import useProject from '@/views/home/hooks/useProject';
+import { useStore } from 'vuex';
+const store = useStore();
+const { addText } = useProject(store);
 const addElementVisible = ref(false);
 </script>
 <style scoped>

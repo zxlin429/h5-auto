@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 20:11:19
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-10 14:57:20
+ * @LastEditTime : 2023-05-10 17:21:43
  * @FilePath     : \h5-auto\src\views\home\components\page-manage\page-manage.vue
  * @Description  : 图层管理
 -->
@@ -12,11 +12,16 @@
       <el-row v-for="element in elementList" :key="element.id">
         <el-col :span="24">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
-            <div class="img-box">
+            <div class="img-box" v-if="element.src">
               <img :src="element.src" class="image" style="width: 100%" />
             </div>
             <div class="des-box">
-              <span>路径: {{ element.info.path }}</span>
+              <span v-if="element.info.path">
+                路径: {{ element.info.path }}
+              </span>
+              <span v-else-if="element.info.uid === 'text'">{{
+                element.info.text || '请输入文字'
+              }}</span>
               <div class="bottom">
                 <el-button
                   type="primary"
@@ -46,14 +51,22 @@ const elementList: Ref<any[]> = ref([]);
 watchEffect(() => {
   elementList.value = [];
   currentPageObject.value.elementList?.forEach((i: { uid: string }) => {
-    setTimeout(() => {
-      getKey(i.uid).then((res) => {
+    if (i.uid === 'text') {
+      setTimeout(() => {
         elementList.value.push({
-          src: res,
           info: i,
         });
       });
-    });
+    } else {
+      setTimeout(() => {
+        getKey(i.uid).then((res) => {
+          elementList.value.push({
+            src: res,
+            info: i,
+          });
+        });
+      });
+    }
   });
 });
 </script>

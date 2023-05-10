@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 20:25:38
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-10 10:13:10
+ * @LastEditTime : 2023-05-10 17:23:44
  * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\body\body-view.vue
  * @Description  : 
 -->
@@ -52,14 +52,29 @@
               @resize-end="print('resize-end')"
             >
               <img
-                :width="element.info.width - 2"
-                :height="element.info.height - 2"
+                v-if="element.src"
                 :src="element.src"
                 :style="{
+                  width: element.info.width - 2 + 'px',
+                  height: element.info.height - 2 + 'px',
                   opacity: element.info.opacity,
                   transform: `rotate(${element.info.rotate || 0}deg)`,
                 }"
               />
+              <textarea
+                :width="element.info.width - 2"
+                :height="element.info.height - 2"
+                :style="{
+                  width: element.info.width - 2 + 'px',
+                  height: element.info.height - 2 + 'px',
+                  opacity: element.info.opacity,
+                  transform: `rotate(${element.info.rotate || 0}deg)`,
+                }"
+                type="text"
+                v-else-if="element.info.uid === 'text'"
+                placeholder="请输入文字"
+                v-model="element.info.text"
+              ></textarea>
             </Vue3DraggableResizable>
           </div>
         </DraggableContainer>
@@ -82,14 +97,22 @@ const elementList: Ref<any[]> = ref([]);
 watchEffect(() => {
   elementList.value = [];
   currentPageObject.value.elementList?.forEach((i: { uid: string }) => {
-    setTimeout(() => {
-      getKey(i.uid).then((res) => {
+    if (i.uid === 'text') {
+      setTimeout(() => {
         elementList.value.push({
-          src: res,
           info: i,
         });
       });
-    });
+    } else {
+      setTimeout(() => {
+        getKey(i.uid).then((res) => {
+          elementList.value.push({
+            src: res,
+            info: i,
+          });
+        });
+      });
+    }
   });
 });
 
@@ -169,5 +192,11 @@ function deactivated() {
   position: absolute;
   left: 0;
   top: 0;
+}
+textarea {
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
 }
 </style>
