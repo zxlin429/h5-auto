@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 20:25:38
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-10 10:05:43
+ * @LastEditTime : 2023-05-10 10:13:10
  * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\body\body-view.vue
  * @Description  : 
 -->
@@ -101,6 +101,8 @@ watchEffect(() => {
         bgImg.value = res as string;
       });
     });
+  } else {
+    bgImg.value = '';
   }
 });
 
