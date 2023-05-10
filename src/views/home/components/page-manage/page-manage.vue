@@ -8,7 +8,7 @@
 -->
 <template>
   <div class="page-manage">
-    <div class="page-manage-box">
+    <div class="page-manage-box" v-if="elementList?.length">
       <el-row v-for="element in elementList" :key="element.id">
         <el-col :span="24">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
@@ -29,6 +29,9 @@
           </el-card>
         </el-col>
       </el-row>
+    </div>
+    <div class="empty" v-else>
+      <el-empty description="暂无组件" :image-size="100" />
     </div>
   </div>
 </template>
@@ -96,5 +99,11 @@ watchEffect(() => {
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 14px;
+}
+.empty {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 227px;
 }
 </style>
