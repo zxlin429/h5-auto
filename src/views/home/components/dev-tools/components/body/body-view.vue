@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 20:25:38
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 17:56:19
+ * @LastEditTime : 2023-05-10 10:05:43
  * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\body\body-view.vue
  * @Description  : 
 -->
@@ -20,6 +20,7 @@
       }"
     >
       <div class="phone-main">
+        <img v-if="bgImg" :src="bgImg" class="phone-main-bg" />
         <DraggableContainer>
           <div
             class="element-box"
@@ -91,6 +92,18 @@ watchEffect(() => {
     });
   });
 });
+
+const bgImg = ref('');
+watchEffect(() => {
+  if (currentPageObject.value.bgUrl) {
+    setTimeout(() => {
+      getKey(currentPageObject.value.bgUrl).then((res) => {
+        bgImg.value = res as string;
+      });
+    });
+  }
+});
+
 function print(val: string, element: any = {}) {
   if (val === 'activated') {
     activated(element);
@@ -147,5 +160,12 @@ function deactivated() {
   overflow: hidden;
   cursor: crosshair;
   position: relative;
+}
+.phone-main-bg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 </style>

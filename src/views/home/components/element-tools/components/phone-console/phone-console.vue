@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 22:15:26
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-04 10:37:53
+ * @LastEditTime : 2023-05-10 09:45:39
  * @FilePath     : \h5-auto\src\views\home\components\element-tools\components\phone-console\phone-console.vue
  * @Description  : 页面控制台
 -->
@@ -46,7 +46,7 @@
       </el-row>
       <el-row class="page-info">
         <el-col :span="12">
-          <label class="bg console-box">
+          <label class="bg console-box" @click="changeBgVisible = true">
             <div class="box"></div>
             <span>背景</span>
           </label>
@@ -66,11 +66,14 @@
       <el-empty description="暂无选中页面" :image-size="50" />
     </div>
   </div>
+  <change-bg v-if="changeBgVisible" v-model="changeBgVisible"></change-bg>
 </template>
 <script setup lang="ts">
+import { ref } from 'vue';
 import { useStore } from 'vuex';
 import useTypeList from '@/views/home/hooks/useTypeList';
 import useProject from '@/views/home/hooks/useProject';
+import ChangeBg from '../change-bg.vue';
 const store = useStore();
 let { currentTypeObject } = useTypeList(store);
 const {
@@ -80,6 +83,7 @@ const {
   addPageAfter,
   handleObserver,
 } = useProject(store);
+const changeBgVisible = ref(false);
 </script>
 <style scoped>
 .phone-console {

@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-05 09:40:03
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-05 18:14:34
+ * @LastEditTime : 2023-05-10 09:40:52
  * @FilePath     : \h5-auto\src\views\home\hooks\useElement.ts
  * @Description  : 元素
  */
@@ -24,6 +24,38 @@ export function setKey(key:string,value:any){
 }
 export function removeKey(key:string){
   return localforage.removeItem(key)
+}
+export function saveBgImg(store:any){
+  return function(list:FileList,path:string,page:any){
+    return new Promise((resolve)=>{
+      if(list.length !== 1){
+        ElMessage({
+          message: '只能选择一张图片',
+          type: 'error',
+        })
+        return false
+      }
+      const file = list[0]
+      if(!['image/png','image/jpeg'].includes(file.type)){
+        ElMessage({
+          message: '请选择图片格式',
+          type: 'error',
+        })
+        return false
+      }
+      const aBlob = new Blob([file],{type:file.type})
+      const reader = new FileReader()
+      reader.readAsDataURL(aBlob)
+      reader.onload = async (e) => {
+        const baseUrl = e.target?.result
+        await removeKey(page.bgUrl)
+        const id = path + '?' +  btoa(`${(Math.random() * 100000000).toFixed()}^${new Date().getTime()}`)
+        page.bgUrl = id
+        await setKey(id,baseUrl)
+        resolve(true)
+      }
+    })
+  }
 }
 export function saveImg(store:any){
   return function(list:FileList,path:string){
