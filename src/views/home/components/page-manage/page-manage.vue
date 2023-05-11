@@ -2,8 +2,8 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 20:11:19
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-10 17:21:43
- * @FilePath     : \h5-auto\src\views\home\components\page-manage\page-manage.vue
+ * @LastEditTime : 2023-05-11 15:41:15
+ * @FilePath     : /h5-auto/src/views/home/components/page-manage/page-manage.vue
  * @Description  : 图层管理
 -->
 <template>
@@ -13,7 +13,11 @@
         <el-col :span="24">
           <el-card shadow="hover" :body-style="{ padding: '0px' }">
             <div class="img-box" v-if="element.src">
-              <img :src="element.src" class="image" style="width: 100%" />
+              <img
+                :src="element.src"
+                class="image"
+                style="width: 100%; display: block"
+              />
             </div>
             <div class="des-box">
               <span v-if="element.info.path">
