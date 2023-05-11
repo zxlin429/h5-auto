@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 20:11:19
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-11 15:42:52
+ * @LastEditTime : 2023-05-11 15:53:00
  * @FilePath     : /h5-auto/src/views/home/components/page-manage/page-manage.vue
  * @Description  : 图层管理
 -->
@@ -116,6 +116,7 @@ watchEffect(() => {
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 14px;
+  display: block;
 }
 .empty {
   position: absolute;
