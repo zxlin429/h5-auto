@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-06-01 14:08:36
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-06-01 15:26:29
+ * @LastEditTime : 2023-06-01 16:32:59
  * @FilePath     : \h5-auto\src\views\home\hooks\usePhoneAdaptation.ts
  * @Description  : 手机页面适配
  */
@@ -31,14 +31,14 @@ export default function(store:any){
     element.width = size.width * comEle.width
     element.height = size.width * comEle.height
     if(comEle.x === 'center'){
-      element.x = (size.width - element.width) / 2
+      element.x =  Math.floor((size.width - element.width) / 2)
     }else{
-      element.x = size.width * comEle.x
+      element.x =  Math.floor(size.width * comEle.x)
     }
     if(comEle.y === 'center'){
-      element.y = (size.height - element.height) / 2
+      element.y =  Math.floor((size.height - element.height) / 2)
     }else{
-    element.y = size.height * comEle.y
+    element.y =  Math.floor(size.height * comEle.y)
     }
   }
 
@@ -46,12 +46,12 @@ export default function(store:any){
     const comEle = {...element}
     const aspect = comEle.width / comEle.height
     comEle.aspect = aspect
-    if(comEle.x * 2 + comEle.width === size.width){
+    if(comEle.x * 2 + comEle.width >= size.width - 5 && comEle.x * 2 + comEle.width <= size.width + 5 ){
       comEle.x = 'center'
     }else{
       comEle.x = comEle.x / size.width
     }
-    if(comEle.y * 2 + comEle.height === size.height){
+    if(comEle.y * 2 + comEle.height >= size.height - 5 && comEle.y * 2 + comEle.height <= size.height + 5 ){
       comEle.y = 'center'
     }else{
       comEle.y = comEle.y / size.height
