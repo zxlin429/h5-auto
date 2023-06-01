@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 22:15:26
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-09 16:57:23
+ * @LastEditTime : 2023-06-01 12:50:20
  * @FilePath     : \h5-auto\src\views\home\components\element-tools\components\element-console\element-console.vue
  * @Description  : 页面控制台
 -->
@@ -34,7 +34,7 @@
         </label>
       </el-col>
     </el-row>
-    <el-row class="size">
+    <el-row class="size" v-if="!currentElementObject.color">
       <el-col :span="12">
         <label class="x-left console-box">
           <input type="text" v-model="currentElementObject.x" />
@@ -45,6 +45,20 @@
         <label class="y-top console-box">
           <input type="text" v-model="currentElementObject.y" />
           <span>Y</span>
+        </label>
+      </el-col>
+    </el-row>
+    <el-row class="size" v-if="currentElementObject.color">
+      <el-col :span="12">
+        <label class="x-left console-box">
+          <el-color-picker v-model="currentElementObject.color" />
+          <span>Color</span>
+        </label>
+      </el-col>
+      <el-col :span="12">
+        <label class="y-top console-box">
+          <input type="text" v-model="currentElementObject.fontSize" />
+          <span>font-size</span>
         </label>
       </el-col>
     </el-row>
@@ -147,7 +161,7 @@
         </label>
       </el-col>
     </el-row>
-    <el-row class="animation">
+    <el-row class="animation" v-if="false">
       <el-col :span="24">
         <label class="z-index console-box">
           <el-row>
@@ -390,5 +404,14 @@ function yRight() {
   transform: translateY(7px);
   color: #f56c6c;
   cursor: pointer;
+}
+::v-deep .el-color-picker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 11px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
 }
 </style>

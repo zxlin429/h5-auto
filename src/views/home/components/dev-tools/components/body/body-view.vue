@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 20:25:38
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-10 17:23:44
+ * @LastEditTime : 2023-06-01 13:47:11
  * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\body\body-view.vue
  * @Description  : 
 -->
@@ -41,7 +41,7 @@
               v-model:active="element.info.active"
               :draggable="true"
               :resizable="true"
-              :lockAspectRatio="true"
+              :lockAspectRatio="element.info.uid !== 'text'"
               @activated="print('activated', element)"
               @deactivated="print('deactivated', element)"
               @drag-start="print('drag-start')"
@@ -62,13 +62,15 @@
                 }"
               />
               <textarea
-                :width="element.info.width - 2"
-                :height="element.info.height - 2"
+                wrap="off"
                 :style="{
                   width: element.info.width - 2 + 'px',
                   height: element.info.height - 2 + 'px',
                   opacity: element.info.opacity,
                   transform: `rotate(${element.info.rotate || 0}deg)`,
+                  color: element.info.color,
+                  fontSize: `${element.info.fontSize}px`,
+                  lineHeight: element.info.height - 6 + 'px',
                 }"
                 type="text"
                 v-else-if="element.info.uid === 'text'"
@@ -198,5 +200,10 @@ textarea {
   outline: none;
   resize: none;
   background: transparent;
+  text-align: center;
+}
+*::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
 }
 </style>

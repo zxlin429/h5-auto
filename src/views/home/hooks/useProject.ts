@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-05-02 14:57:51
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-10 17:15:33
+ * @LastEditTime : 2023-06-01 11:43:07
  * @FilePath     : \h5-auto\src\views\home\hooks\useProject.ts
  * @Description  : 
  */
@@ -88,6 +88,8 @@ export default function(store:Store<any>){
     active:boolean
     animation:string
     text = ''
+    color = '#000000'
+    fontSize= 16
     constructor(uid:string,width:number,height:number,x=0,y=0,zIndex=1,opacity = 1,rotate=0,active=false,animation='',id= btoa(`${(Math.random() * 100000000).toFixed()}/${new Date().getTime()}`)){
       this.id = id
       this.uid = uid
