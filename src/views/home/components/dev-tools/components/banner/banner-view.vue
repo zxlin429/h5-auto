@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 10:02:16
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-06-01 14:16:20
+ * @LastEditTime : 2023-06-01 16:17:03
  * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\banner\banner-view.vue
  * @Description  : 
 -->

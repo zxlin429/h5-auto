@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-06-01 14:08:36
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-06-01 15:36:16
+ * @LastEditTime : 2023-06-01 15:26:29
  * @FilePath     : \h5-auto\src\views\home\hooks\usePhoneAdaptation.ts
  * @Description  : 手机页面适配
  */
@@ -25,7 +25,6 @@ export default function(store:any){
         })
       })
     });
-    store.commit('devTools/resetTypeList')
   }
 
   function handleChangeElement(size:any,element:any,comEle:any){
