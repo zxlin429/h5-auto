@@ -2,8 +2,8 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 10:02:16
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-05-03 19:07:52
- * @FilePath     : /h5-auto/src/views/home/components/dev-tools/components/banner/banner-view.vue
+ * @LastEditTime : 2023-06-01 14:16:20
+ * @FilePath     : \h5-auto\src\views\home\components\dev-tools\components\banner\banner-view.vue
  * @Description  : 
 -->
 <template>
@@ -13,7 +13,12 @@
         <el-col :span="12">
           <el-col :span="4" class="size"> 尺寸: </el-col>
           <el-col :span="20">
-            <el-select v-model="currentType" placeholder="Select" size="small">
+            <el-select
+              v-model="currentType"
+              placeholder="Select"
+              size="small"
+              @change="handleCurrentPhoneChange"
+            >
               <template #prefix>
                 <el-icon @click.stop="addVisible = true">
                   <CirclePlus />
@@ -108,6 +113,7 @@ import DeleteType from './components/delete-type.vue';
 import ResetType from './components/reset-type.vue';
 import { useStore } from 'vuex';
 import useTypeList from '@/views/home/hooks/useTypeList';
+import usePhoneAdaptation from '@/views/home/hooks/usePhoneAdaptation';
 const store = useStore();
 let {
   typeList,
@@ -116,11 +122,16 @@ let {
   percentageList,
   currentPercentage,
 } = useTypeList(store);
-
+let { handleChange } = usePhoneAdaptation(store);
 const addVisible = ref(false);
 const deleteVisible = ref(false);
 const typeId = ref('');
 const resetVisible = ref(false);
+let lastCurrentType = currentType.value;
+function handleCurrentPhoneChange(val: string) {
+  handleChange(lastCurrentType, val);
+  lastCurrentType = val;
+}
 </script>
 <style scoped>
 .styles-variable {

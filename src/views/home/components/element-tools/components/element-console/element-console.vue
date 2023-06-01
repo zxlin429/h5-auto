@@ -2,7 +2,7 @@
  * @Author       : zxlin
  * @Date         : 2023-04-28 22:15:26
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-06-01 12:50:20
+ * @LastEditTime : 2023-06-01 15:33:38
  * @FilePath     : \h5-auto\src\views\home\components\element-tools\components\element-console\element-console.vue
  * @Description  : 页面控制台
 -->
