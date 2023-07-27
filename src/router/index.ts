@@ -2,11 +2,11 @@
  * @Author       : zxlin
  * @Date         : 2023-04-27 14:39:17
  * @LastEditors  : zxlin
- * @LastEditTime : 2023-04-28 09:49:45
+ * @LastEditTime : 2023-07-27 09:30:42
  * @FilePath     : \h5-auto\src\router\index.ts
  * @Description  : 
  */
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/home/Home-view.vue'
 
 const routes: Array<RouteRecordRaw> = [
@@ -18,7 +18,7 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHashHistory(),
   routes
 })
 
